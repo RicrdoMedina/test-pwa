@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Template UltraCreditos.com</title>
+  <title>Quiénes somos</title>
   <link href="styles.css" rel="stylesheet">
 
 
@@ -200,6 +200,14 @@
       <div class="modal-footer">
       </div>
     </div>
+    <script>
+      if ('serviceWorker' in navigator) {
+        console.log("sw")
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('./sw.js');
+        });
+      }
+    </script>
 <script type="text/javascript" src="main.js"></script></body>
 
 </html>
