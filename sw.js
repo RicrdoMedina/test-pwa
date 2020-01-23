@@ -14,6 +14,7 @@ workbox.precaching.precacheAndRoute([
   "./styles.css",
   "./main.js",
   "./index.php",
+  "./quienes-somos.php",
   "./assets/favicon/android-chrome-512x512.png",
   "./assets/favicon/android-chrome-192x192.png",
   "./assets/favicon/mstile-150x150.png",
