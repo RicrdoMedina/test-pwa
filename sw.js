@@ -7,30 +7,31 @@
 importScripts(
   "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js"
 );
-console.log("***");
 
-// Precarga la app
-workbox.precaching.precacheAndRoute([
-  "./styles.css",
-  "./main.js",
-  "./index.php",
-  "./quienes-somos.php",
-  "./assets/favicon/android-chrome-512x512.png",
-  "./assets/favicon/android-chrome-192x192.png",
-  "./assets/favicon/mstile-150x150.png",
-  "./assets/favicon/mstile-144x144.png",
-  "./assets/favicon/mstile-310x150.png",
-  "./assets/favicon/mstile-310x310.png",
-  "./assets/favicon/mstile-70x70.png",
-  "./assets/favicon/favicon-32x32.png",
-  "./assets/favicon/favicon-16x16.png"
-]);
+if (workbox) {
+  //workbox solo existe en el scope del serviceWorker
+  console.log("Workbox loaded!");
 
-// App Shell
-workbox.routing.registerNavigationRoute("./index.php");
+  workbox.core.setCacheNameDetails({
+    prefix: "UltraCreditos",
+    suffix: "v1.0.1",
+    precache: "precache-cache",
+    runtime: "runtime-cache"
+  });
 
-workbox.routing.registerRoute(
-  new RegExp(/^https?.*/),
-  new workbox.strategies.NetworkFirst(),
-  "GET"
-);
+  workbox.routing.registerRoute(
+    /\.(?:js|css)$/, // Todos los archivos con extensión js o css
+    workbox.strategies.cacheFirst({
+      cacheName: workbox.core.cacheNames.precache // nombre de la cache donde queremos guardar el recurso
+    })
+  );
+
+  // Todo lo demás usa Network First
+  workbox.routing.registerRoute(
+    /^https?.*/,
+    workbox.strategies.networkFirst(),
+    "GET"
+  );
+} else {
+  console.log(`Can't load Workbox`);
+}
